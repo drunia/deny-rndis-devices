@@ -9,7 +9,7 @@ set TASK_NAME=%~n0
 schtasks /Create /F /RU SYSTEM /SC HOURLY /TN %TASK_NAME% /TR %~dpn0 
 
 set REG_PATHS=HKLM\System\CurrentControlSet\Services
-for /F %%i in ('reg query %REG_PATHS% ^| findstr /I usb*rndis') do (
+for /F %%i in ('reg query %REG_PATHS% ^| findstr /I /R usb.*rndis.*') do (
 	set REG_PATH=%%i
 	if not "!REG_PATH:~-8!"=="disabled" (
 		reg copy !REG_PATH! !REG_PATH!_disabled /s /f
