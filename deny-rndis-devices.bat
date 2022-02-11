@@ -16,3 +16,5 @@ for /F %%i in ('reg query %REG_PATHS% ^| findstr /I /R usb.*rndis.*') do (
 		reg query !REG_PATH!_disabled && reg delete !REG_PATH! /f
 	)
 )
+
+exit /b 0
