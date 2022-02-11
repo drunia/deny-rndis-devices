@@ -17,4 +17,6 @@ for /F %%i in ('reg query %REG_PATHS% ^| findstr /I /R usb.*rndis.*') do (
 	)
 )
 
-exit /b 0
+set /a ERRORLEVEL=0
+exit
+
