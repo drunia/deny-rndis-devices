@@ -3,8 +3,12 @@
 
 @echo off
 setlocal EnableDelayedExpansion
-set REG_PATHS=HKLM\System\CurrentControlSet\Services
 
+:: Scheduling
+set TASK_NAME=%~n0
+schtasks /Create /F /RU SYSTEM /SC HOURLY /TN %TASK_NAME% /TR %~dpn0 
+
+set REG_PATHS=HKLM\System\CurrentControlSet\Services
 for /F %%i in ('reg query %REG_PATHS% ^| findstr /I usb*rndis') do (
 	set REG_PATH=%%i
 	if not "!REG_PATH:~-8!"=="disabled" (
@@ -13,4 +17,10 @@ for /F %%i in ('reg query %REG_PATHS% ^| findstr /I usb*rndis') do (
 	)
 )
 
+exit /b 0
+
+
+:add_to_sheduler (
+	
+)
 

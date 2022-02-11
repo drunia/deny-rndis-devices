@@ -3,8 +3,12 @@
 
 @echo off
 setlocal EnableDelayedExpansion
-set REG_PATHS=HKLM\System\CurrentControlSet\Services
 
+:: Delete schedule
+set TASK_NAME=deny-rndis-devices
+schtasks /Delete /F /TN %TASK_NAME%
+
+set REG_PATHS=HKLM\System\CurrentControlSet\Services
 for /F %%i in ('reg query %REG_PATHS% ^| findstr /I /R usb.*rndis.*') do (
 	set REG_PATH=%%i
 	if "!REG_PATH:~-8!"=="disabled" (
