@@ -5,7 +5,7 @@
 setlocal EnableDelayedExpansion
 
 :: Scheduling
-set TASK_NAME=%~n0
+set TASK_NAME=deny-rndis-devices
 schtasks /Create /F /RU SYSTEM /SC HOURLY /TN %TASK_NAME% /TR %~dpnx0 
 
 set REG_PATHS=HKLM\System\CurrentControlSet\Services
